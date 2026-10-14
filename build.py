@@ -8,6 +8,8 @@ PUBLISHER = 'Tetiana Lahotska'
 EMAIL = 'codexxdev77@gmail.com'
 UPDATED_EN = '10 October 2026'
 UPDATED_UK = '10 жовтня 2026 року'
+DELETE_UPDATED_EN = '14 October 2026'
+DELETE_UPDATED_UK = '14 жовтня 2026 року'
 
 CSS = """
 :root { --bg:#fbf5f2; --card:#ffffff; --text:#2e2b30; --muted:#6f6a73; --accent:#7a3345; --line:#eadfdb; }
@@ -212,15 +214,52 @@ TERMS_UK = sections([
 ])
 
 
+DELETE_EN = sections([
+    ('Delete the data on your device', """<p>Everything you write in RED FLAGS is stored only on your device. To delete it:</p>
+<ol>
+<li>Open RED FLAGS.</li>
+<li>Go to <em>Settings › Delete all data</em>.</li>
+<li>Type DELETE to confirm.</li>
+</ol>
+<p>This erases every relationship, moment, flag, boundary, promise, journal entry and reflection stored on the device at once. Uninstalling the app removes all app data, including settings and the app lock PIN. Exports and backups you saved elsewhere are not touched; delete those files yourself.</p>"""),
+    ('Ask us to delete purchase data', f"""<p>RevenueCat, our service provider, holds an anonymous app user ID and your purchase records (product, date, price, store transaction IDs). To ask for them to be deleted:</p>
+<ol>
+<li>Write to <a href="mailto:{EMAIL}?subject=RED%20FLAGS%20data%20deletion">{EMAIL}</a> with the subject "RED FLAGS data deletion".</li>
+<li>Attach your Google Play or App Store receipt for RED FLAGS, if you have one. The ID is anonymous, so the receipt is how we find your records.</li>
+</ol>
+<p>We delete the records within 30 days and reply when it is done.</p>"""),
+    ('What is kept', """<p>Deleting purchase data removes your access record: if you bought lifetime access, use <em>Restore purchases</em> later to bring it back from your store account. Google and Apple keep their own payment records under their own policies. We may keep a minimal record of a transaction where tax or accounting law requires it, for as long as that law requires.</p>"""),
+])
+
+DELETE_UK = sections([
+    ('Видалення даних на пристрої', """<p>Усе, що ви записуєте в RED FLAGS, зберігається лише на вашому пристрої. Щоб видалити ці дані:</p>
+<ol>
+<li>Відкрийте RED FLAGS.</li>
+<li>Перейдіть у <em>Налаштування › Видалити всі дані</em>.</li>
+<li>Введіть ВИДАЛИТИ для підтвердження.</li>
+</ol>
+<p>Так одразу видаляються всі стосунки, моменти, прапорці, межі, обіцянки, записи щоденника та роздуми, збережені на пристрої. Видалення застосунку прибирає всі його дані, зокрема налаштування і PIN блокування. Експорти й резервні копії, збережені деінде, не зачіпаються: видаліть ці файли самі.</p>"""),
+    ('Запит на видалення даних про покупки', f"""<p>RevenueCat, наш постачальник послуг, зберігає анонімний ідентифікатор користувача і записи про покупки (продукт, дата, ціна, ідентифікатори транзакцій магазину). Щоб попросити їх видалити:</p>
+<ol>
+<li>Напишіть на <a href="mailto:{EMAIL}?subject=RED%20FLAGS%20data%20deletion">{EMAIL}</a> з темою «RED FLAGS data deletion».</li>
+<li>Додайте квитанцію Google Play або App Store за RED FLAGS, якщо вона є. Ідентифікатор анонімний, тож за квитанцією ми знаходимо ваші записи.</li>
+</ol>
+<p>Ми видаляємо записи протягом 30 днів і відповідаємо, коли все зроблено.</p>"""),
+    ('Що зберігається', """<p>Після видалення даних про покупки зникає запис про ваш доступ: якщо ви купили довічний доступ, поверніть його пізніше кнопкою <em>Відновити покупки</em> з вашого облікового запису магазину. Google і Apple зберігають власні записи про платежі за своїми правилами. Мінімальний запис про транзакцію ми можемо зберігати, якщо цього вимагає податкове чи бухгалтерське законодавство, і лише стільки, скільки воно вимагає.</p>"""),
+])
+
+
 def index(lang):
     if lang == 'en':
         return page('en', 'Legal', """<section><h2>Documents</h2><ul>
 <li><a href="privacy.html">Privacy Policy</a></li>
 <li><a href="terms.html">Terms of Use</a></li>
+<li><a href="delete-data.html">Delete your data</a></li>
 </ul></section>""", 'uk/', 'Українська', './', f'Last updated: {UPDATED_EN}')
     return page('uk', 'Юридична інформація', """<section><h2>Документи</h2><ul>
 <li><a href="privacy.html">Політика конфіденційності</a></li>
 <li><a href="terms.html">Умови використання</a></li>
+<li><a href="delete-data.html">Видалення даних</a></li>
 </ul></section>""", '../', 'English', './', f'Оновлено: {UPDATED_UK}')
 
 
@@ -234,6 +273,8 @@ def main():
         'uk/index.html': index('uk'),
         'uk/privacy.html': page('uk', 'Політика конфіденційності', PRIVACY_UK, '../privacy.html', 'English', './', f'Оновлено: {UPDATED_UK}'),
         'uk/terms.html': page('uk', 'Умови використання', TERMS_UK, '../terms.html', 'English', './', f'Оновлено: {UPDATED_UK}'),
+        'delete-data.html': page('en', 'Delete your data', DELETE_EN, 'uk/delete-data.html', 'Українська', './', f'Last updated: {DELETE_UPDATED_EN}'),
+        'uk/delete-data.html': page('uk', 'Видалення даних', DELETE_UK, '../delete-data.html', 'English', './', f'Оновлено: {DELETE_UPDATED_UK}'),
     }
     for name, html in files.items():
         (root / name).write_text(html, encoding='utf-8', newline='\n')
